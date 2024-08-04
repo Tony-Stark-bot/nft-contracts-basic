@@ -8,15 +8,17 @@ contract MyNFT is ERC721 {
 
     address public owner;
 
-    constructor() ERC721("OnlyOwnerMint", "OWNER") {
+    constructor() ERC721("OnlyOwnerMintWithModifier", "OWNERMOD") {
 
         owner = _msgSender();
     }
 
-    function nftMint(uint256 tokenId) public {
-
+    modifier onlyOwner {
         require(owner == _msgSender(), "Caller is not the owner.");
+        _;
+    }
 
+    function nftMint(uint256 tokenId) public onlyOwner{
         _mint(_msgSender(), tokenId);
     }
 }
