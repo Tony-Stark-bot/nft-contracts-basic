@@ -6,7 +6,12 @@ import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
 
 contract MyNFT is ERC721 {
 
-    constructor() ERC721("MyNFT", "MYNFT") {}
+    address public owner;
+
+    constructor() ERC721("OnlyOwnerMint", "OWNER") {
+
+        owner = _msgSender();
+    }
 
     function nftMint(address to, uint256 tokenId) public {
 
